@@ -21,15 +21,11 @@ const App = () => {
   return (
     <>
       <SearchStatus length={users.length} />
-      {users.length ? (
-        <Users
-          users={users}
-          onDelete={handleDelete}
-          onToggleBookMark={handleToggleBookMark}
-        />
-      ) : (
-        ""
-      )}
+      <Users
+        users={users}
+        onDelete={handleDelete}
+        onToggleBookMark={handleToggleBookMark}
+      />
     </>
   );
 };
