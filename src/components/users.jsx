@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import User from "./user";
 import Pagination from "./pagination";
+import PropTypes from "prop-types";
 import { paginate } from "../utils/pagenate";
 
 const Users = ({ users: allUsers, ...rest }) => {
@@ -43,6 +44,10 @@ const Users = ({ users: allUsers, ...rest }) => {
       />
     </>
   );
+};
+
+Users.propTypes = {
+  users: PropTypes.array.isRequired
 };
 
 export default Users;
