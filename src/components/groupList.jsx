@@ -8,10 +8,9 @@ const GroupList = ({
   selectedItem,
   onItemSelect
 }) => {
-  const list = Array.isArray(items) ? items : Object.keys(items);
   return (
     <ul className="list-group">
-      {Object.keys(list).map((item) => (
+      {Object.keys(items).map((item) => (
         <li
           role="button"
           key={items[item][valueProp]}
