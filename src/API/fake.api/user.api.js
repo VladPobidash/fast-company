@@ -151,6 +151,15 @@ const fetchAll = () => {
   });
 };
 
+const getById = (id) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(users.find((u) => u._id === id));
+    }, 1000);
+  });
+};
+
 export default {
-  fetchAll
+  fetchAll,
+  getById
 };

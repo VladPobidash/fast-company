@@ -5,12 +5,13 @@ import UsersTable from "./usersTable";
 import Pagination from "./pagination";
 import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
+import Loading from "./loading";
 
 import { paginate } from "../utils/pagenate";
 import API from "../api";
 import _ from "lodash";
 
-const Users = () => {
+const UsersList = () => {
   const [users, setUsers] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [professions, setProfessions] = useState();
@@ -95,7 +96,7 @@ const Users = () => {
       </div>
     );
   }
-  return "loading...";
+  return <Loading />;
 };
 
-export default Users;
+export default UsersList;
