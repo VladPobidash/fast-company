@@ -5,10 +5,10 @@ import UsersTable from "./usersTable";
 import Pagination from "./pagination";
 import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
-import Loading from "./loading";
+import Loading from "../loading";
 
-import { paginate } from "../utils/pagenate";
-import API from "../api";
+import { paginate } from "../../utils/pagenate";
+import API from "../../api";
 import _ from "lodash";
 
 const UsersList = () => {

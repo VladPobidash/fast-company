@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import API from "../api";
+import API from "../../api";
 
-import Loading from "./loading";
+import Loading from "../loading";
 import Qualite from "./qualite";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router";
