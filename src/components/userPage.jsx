@@ -6,7 +6,7 @@ import Qualite from "./qualite";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router";
 
-const User = ({ id }) => {
+const UserPage = ({ id }) => {
   const history = useHistory();
   const [user, setUser] = useState();
 
@@ -42,7 +42,7 @@ const User = ({ id }) => {
     </div>
   );
 };
-User.propTypes = {
+UserPage.propTypes = {
   id: PropTypes.string.isRequired
 };
-export default User;
+export default UserPage;

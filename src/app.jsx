@@ -1,13 +1,13 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/navBar";
-import Main from "./components/layouts/main";
-import Login from "./components/layouts/login";
-import Users from "./components/layouts/users";
+import Main from "./layouts/main";
+import Login from "./layouts/login";
+import Users from "./layouts/users";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <>
       <NavBar />
 
       <Switch>
@@ -15,7 +15,7 @@ const App = () => {
         <Route path="/login" component={Login} />
         <Route path="/users/:id?" component={Users} />
       </Switch>
-    </BrowserRouter>
+    </>
   );
 };
 
