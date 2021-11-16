@@ -1,18 +1,18 @@
 /* eslint-disable multiline-ternary */
 import React, { useState, useEffect } from "react";
 
-import UsersTable from "./usersTable";
-import Pagination from "./pagination";
-import GroupList from "./groupList";
-import SearchStatus from "./searchStatus";
-import TextField from "./inputs/textField";
-import Loading from "./loading";
+import UsersTable from "../../ui/usersTable";
+import Pagination from "../../common/pagination";
+import GroupList from "../../common/groupList";
+import SearchStatus from "../../ui/searchStatus";
+import TextField from "../../form/textField";
+import Loading from "../../common/loading";
 
-import { paginate } from "../../utils/pagenate";
-import API from "../../api";
+import { paginate } from "../../../utils/pagenate";
+import API from "../../../api";
 import _ from "lodash";
 
-const UsersList = () => {
+const UsersListPage = () => {
   const [users, setUsers] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [professions, setProfessions] = useState();
@@ -125,4 +125,4 @@ const UsersList = () => {
   return <Loading />;
 };
 
-export default UsersList;
+export default UsersListPage;
