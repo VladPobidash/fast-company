@@ -5,6 +5,7 @@ import UsersTable from "./usersTable";
 import Pagination from "./pagination";
 import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
+import TextField from "./inputs/textField";
 import Loading from "./loading";
 
 import { paginate } from "../utils/pagenate";
@@ -16,6 +17,7 @@ const UsersList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [professions, setProfessions] = useState();
   const [selectedProf, setSelectedProf] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
 
   const pageSize = 8;
@@ -44,15 +46,30 @@ const UsersList = () => {
     setUsers([...newUsers]);
   };
 
+  const handleSearchInput = ({ target }) => {
+    clearFilter();
+    setSearchQuery(target.value);
+  };
+
   const handlePageChange = (pageIndex) => setCurrentPage(pageIndex);
-  const handleProfessionSelect = (item) => setSelectedProf(item);
+  const handleProfessionSelect = (item) => {
+    setSearchQuery("");
+    setSelectedProf(item);
+  };
   const clearFilter = () => setSelectedProf();
   const handleSort = (item) => setSortBy(item);
 
   if (users) {
-    const filteredUsers = selectedProf
-      ? users.filter((user) => user.profession._id === selectedProf._id)
-      : users;
+    let filteredUsers = users;
+
+    if (selectedProf) {
+      filteredUsers = users.filter(
+        (user) => user.profession._id === selectedProf._id
+      );
+    } else {
+      filteredUsers = users.filter((user) => user.name.includes(searchQuery));
+    }
+
     const count = filteredUsers.length;
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
     const usersCrop = paginate(sortedUsers, pageSize, currentPage);
@@ -73,6 +90,15 @@ const UsersList = () => {
         )}
         <div className="d-flex flex-column w-100">
           <SearchStatus length={count} />
+          <div className="m-2">
+            <TextField
+              type="search"
+              name="search"
+              value={searchQuery}
+              placeholder="Search..."
+              onChange={handleSearchInput}
+            />
+          </div>
 
           {count > 0 && (
             <UsersTable
