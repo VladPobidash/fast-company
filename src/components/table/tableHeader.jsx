@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SortIcon from "./sortIcon";
+import SortIcon from "../users/sortIcon";
 
 const TableHeader = ({ onSort, selectedSort, columns }) => {
   const handleSort = (item) => {

@@ -8,8 +8,8 @@ import SearchStatus from "./searchStatus";
 import TextField from "./inputs/textField";
 import Loading from "./loading";
 
-import { paginate } from "../utils/pagenate";
-import API from "../api";
+import { paginate } from "../../utils/pagenate";
+import API from "../../api";
 import _ from "lodash";
 
 const UsersList = () => {
