@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
+import API from "../../api";
+import SelectField from "../common/form/selectField";
+import RadioField from "../common/form/radioField";
 
 const RegisterForm = () => {
-  const [data, setData] = useState({ email: "", password: "" });
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+    profession: "",
+    sex: "male"
+  });
+  const [professions, setProfessions] = useState();
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    API.professions.fetchAll().then(setProfessions);
+  }, []);
 
   const handleChange = ({ target }) => {
     setData((prevState) => ({
@@ -35,6 +48,11 @@ const RegisterForm = () => {
       min: {
         message: "Пароль должен состоянть минимум из 8 символов",
         value: 8
+      }
+    },
+    profession: {
+      isRequired: {
+        message: "Обязательно выберите вашу профессию"
       }
     }
   };
@@ -76,6 +94,25 @@ const RegisterForm = () => {
         name="password"
         value={data.password}
         error={errors.password}
+        onChange={handleChange}
+      />
+      <SelectField
+        label="Выбери свою профессию"
+        name="profession"
+        defaultOption="Choose..."
+        options={professions}
+        value={data.profession}
+        error={errors.profession}
+        onChange={handleChange}
+      />
+      <RadioField
+        label="Выбери свой пол"
+        name="sex"
+        options={[
+          { name: "Male", value: "male" },
+          { name: "Female", value: "female" }
+        ]}
+        value={data.sex}
         onChange={handleChange}
       />
       <button disabled={!isValid} className="btn btn-primary w-100 mx-auto">
