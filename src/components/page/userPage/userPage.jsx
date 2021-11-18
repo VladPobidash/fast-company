@@ -11,9 +11,8 @@ const UserPage = ({ id }) => {
   const [user, setUser] = useState();
 
   // eslint-disable-next-line space-before-function-paren
-  useEffect(async () => {
-    const user = await API.users.getById(id);
-    setUser(user);
+  useEffect(() => {
+    API.users.getById(id).then(setUser);
   }, []);
 
   if (!user) return <Loading />;
@@ -32,9 +31,9 @@ const UserPage = ({ id }) => {
         <p>{rate}</p>
         <button
           className="btn btn-primary"
-          onClick={() => history.replace("/users")}
+          onClick={() => history.push(`/users/${id}/edit`)}
         >
-          Все пользователи
+          Изменить
         </button>
       </div>
     </div>
