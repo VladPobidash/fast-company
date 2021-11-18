@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField";
-import { validator } from "../../utils/validator";
 import CheckBoxField from "../common/form/checkBoxField";
+import * as yup from "yup";
 
 const LoginForm = () => {
   const [data, setData] = useState({ email: "", password: "", stayOn: false });
@@ -14,39 +14,35 @@ const LoginForm = () => {
     }));
   };
 
-  const validatorConfig = {
-    email: {
-      isRequired: {
-        message: "Email обязательный для заполнения"
-      },
-      isEmail: {
-        message: "Email введен некоректно"
-      }
-    },
-    password: {
-      isRequired: {
-        message: "Пароль обязательный для заполнения"
-      },
-      isCapitalSymbol: {
-        message: "Пароль должен содеражть хотя бы одну заглавную букву"
-      },
-      isContainDigit: {
-        message: "Пароль должен содержать хотя бы одно число"
-      },
-      min: {
-        message: "Пароль должен состоянть минимум из 8 символов",
-        value: 8
-      }
-    }
-  };
+  const validateSchema = yup.object().shape({
+    password: yup
+      .string()
+      .required("Пароль обязателен для заполнения")
+      .matches(
+        /[A-Z]+/g,
+        "Пароль должен содеражть хотя бы одну заглавную букву"
+      )
+      .matches(/\d+/g, "Пароль должен содержать хотя бы одно число")
+      .matches(
+        /(?=.*[!@#$%^&*])/,
+        "Пароль должен содержать один из специальных символов !@#$%^&*"
+      )
+      .matches(/(?=.{8,})/, "Пароль должен состоянть минимум из 8 символов"),
+    email: yup
+      .string()
+      .required("Email обязательный для заполнения")
+      .email("Email введен некоректно")
+  });
 
   useEffect(() => {
     validate();
   }, [data]);
 
   const validate = () => {
-    const errors = validator(data, validatorConfig);
-    setErrors(errors);
+    validateSchema
+      .validate(data)
+      .then(() => setErrors({}))
+      .catch((err) => setErrors({ [err.path]: err.message }));
     return Object.keys(errors).length === 0;
   };
 
