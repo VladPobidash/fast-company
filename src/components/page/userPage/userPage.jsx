@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import API from "../../api";
+import API from "../../../api";
 
-import Loading from "../loading";
-import Qualite from "./qualite";
+import Loading from "../../common/loading";
+import Qualities from "../../ui/qualities";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router";
 
@@ -11,9 +11,8 @@ const UserPage = ({ id }) => {
   const [user, setUser] = useState();
 
   // eslint-disable-next-line space-before-function-paren
-  useEffect(async () => {
-    const user = await API.users.getById(id);
-    setUser(user);
+  useEffect(() => {
+    API.users.getById(id).then(setUser);
   }, []);
 
   if (!user) return <Loading />;
@@ -25,18 +24,16 @@ const UserPage = ({ id }) => {
       <div className="card-body">
         <h2 className="card-title">{name}</h2>
         <p>
-          {qualities.map((qualitie) => (
-            <Qualite key={qualitie._id} {...qualitie} />
-          ))}
+          <Qualities qualities={qualities} />
         </p>
         <p>{profession.name}</p>
         <p>{completedMeetings}</p>
         <p>{rate}</p>
         <button
           className="btn btn-primary"
-          onClick={() => history.replace("/users")}
+          onClick={() => history.push(`/users/${id}/edit`)}
         >
-          Все пользователи
+          Изменить
         </button>
       </div>
     </div>
